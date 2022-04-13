@@ -11,6 +11,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: "Poppins", sans-serif;
 }
@@ -45,9 +46,9 @@ a:active {
 
 /* component*/
 
-.button {
+button {
   border-radius: 5px;
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   border: none;
 }
 
@@ -173,16 +174,16 @@ a:active {
 }
 
 .mt-x2 {
-  margin-top: (var(--rem2));
+  margin-top: var(--rem2);
 }
 .mb-x2 {
-  margin-bottom: (var(--rem2));
+  margin-bottom: var(--rem2);
 }
 .mr-x2 {
-  margin-right: (var(--rem2));
+  margin-right: var(--rem2);
 }
 .ml-x2 {
-  margin-left: (var(--rem2));
+  margin-left: var(--rem2);
 }
 /* 3rem */
 .m-all-x3 {
@@ -196,16 +197,16 @@ a:active {
 }
 
 .mt-x3 {
-  margin-top: (var(--rem3));
+  margin-top: var(--rem3);
 }
 .mb-x3 {
-  margin-bottom: (var(--rem3));
+  margin-bottom: var(--rem3);
 }
 .mr-x3 {
-  margin-right: (var(--rem3));
+  margin-right: var(--rem3);
 }
 .ml-x3 {
-  margin-left: (var(--rem3));
+  margin-left: var(--rem3);
 }
 
 /*
@@ -247,16 +248,16 @@ a:active {
 }
 
 .pt {
-  padding-top: (var(--rem1));
+  padding-top: var(--rem1);
 }
 .pb {
-  padding-bottom: (var(--rem1));
+  padding-bottom: var(--rem1);
 }
 .pr {
-  padding-right: (var(--rem1));
+  padding-right: var(--rem1);
 }
 .pl {
-  padding-left: (var(--rem1));
+  padding-left: var(--rem1);
 }
 /* 2rem */
 .p-x2 {
@@ -270,16 +271,16 @@ a:active {
 }
 
 .pt-x2 {
-  padding-top: (var(--rem2));
+  padding-top: var(--rem2);
 }
 .pb-x2 {
-  padding-bottom: (var(--rem2));
+  padding-bottom: var(--rem2);
 }
 .pr-x2 {
-  padding-right: (var(--rem2));
+  padding-right: var(--rem2);
 }
 .pl-x2 {
-  padding-left: (var(--rem2));
+  padding-left: var(--rem2);
 }
 
 /* 3rem */
@@ -294,14 +295,14 @@ a:active {
 }
 
 .pt-x3 {
-  padding-top: (var(--rem3));
+  padding-top: var(--rem3);
 }
 .pb-x3 {
-  padding-bottom: (var(--rem3));
+  padding-bottom: var(--rem3);
 }
 .pr-x3 {
-  padding-right: (var(--rem3));
+  padding-right: var(--rem3);
 }
 .pl-x3 {
-  padding-left: (var(--rem3));
+  padding-left: var(--rem3);
 }
