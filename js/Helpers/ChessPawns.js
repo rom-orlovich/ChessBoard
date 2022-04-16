@@ -1,12 +1,12 @@
 export const dataImg = {
   white: {
-    solider: {
+    soldier: {
       src: "./assets/white/Chess_plt60.png",
     },
-    runner: {
+    bishop: {
       src: "./assets/white/Chess_blt60.png",
     },
-    horse: {
+    knight: {
       src: "./assets/white/Chess_nlt60.png",
     },
     king: {
@@ -15,18 +15,18 @@ export const dataImg = {
     queen: {
       src: "./assets/white/Chess_qlt60.png",
     },
-    castle: {
+    rook: {
       src: "./assets/white/Chess_rlt60.png",
     },
   },
   black: {
-    solider: {
+    soldier: {
       src: "./assets/black/Chess_pdt60.png",
     },
-    runner: {
+    bishop: {
       src: "./assets/black/Chess_bdt60.png",
     },
-    horse: {
+    knight: {
       src: "./assets/black/Chess_ndt60.png",
     },
     king: {
@@ -35,7 +35,7 @@ export const dataImg = {
     queen: {
       src: "./assets/black/Chess_qdt60.png",
     },
-    castle: {
+    rook: {
       src: "./assets/black/Chess_rdt60.png",
     },
   },

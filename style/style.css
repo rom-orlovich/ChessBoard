@@ -24,8 +24,10 @@ table {
 }
 
 img {
-  height: 40px;
-  width: 40px;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  cursor: pointer;
 }
 table,
 td {
@@ -33,11 +35,9 @@ td {
 }
 
 td {
-  /* cursor: pointer;
-  background-color: blue; */
-}
-td {
+  position: relative;
   text-align: center;
+
   height: 50px;
   width: 50px;
 }
@@ -47,6 +47,7 @@ table tr:nth-child(even) td:nth-child(odd) {
   background-color: rgba(27, 27, 27, 0.7);
   border: 0.5px solid rgba(27, 27, 27, 1);
 }
+
 /* white square 
 table tr:nth-child(2n) td:nth-child(2n + 1),
 table tr:nth-child(2n + 1) td:nth-child(2n) {
@@ -88,6 +89,7 @@ button:hover {
   transition: 1s transform;
 }
 /*pawn active*/
+
 .active {
-  cursor: pointer;
+  background-color: #2e2eb561 !important;
 }
