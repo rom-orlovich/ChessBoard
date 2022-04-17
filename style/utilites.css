@@ -96,6 +96,7 @@ a:active {
 .grid {
   display: grid;
 }
+
 .grid-warrper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250, 1fr));

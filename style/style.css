@@ -27,11 +27,12 @@ td {
 img {
   z-index: 100;
 }
-
+td {
+}
 /* black square  */
 table tr:nth-child(odd) td:nth-child(even),
 table tr:nth-child(even) td:nth-child(odd) {
-  background-color: black;
+  background-color: rgb(98, 110, 123);
   border: 0.5px solid rgba(27, 27, 27, 1);
 }
 /* white square 

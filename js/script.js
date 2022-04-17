@@ -3,11 +3,15 @@ import { createImg } from "./utlities.js";
 const SIZE = 8;
 // typePawn,color,TDindex,numberPawn
 const checkTypePawn = (numberPawn) => {
-  if (numberPawn === 0 || SIZE - 1 - 1) return "rook";
-  else if (numberPawn === 1 || SIZE - 1 - 2) return "knight";
-  else if (numberPawn === 2 || SIZE - 1 - 3) return "rook";
-  else if (numberPawn === 3) return "king";
-  else if (numberPawn === 4) return "queen";
+  let typePawn;
+
+  if (numberPawn === 0 || SIZE - 1) typePawn = "rook";
+  if (numberPawn === 1 || SIZE - 2) typePawn = "knight";
+  if (numberPawn === 2 || SIZE - 3) typePawn = "rook";
+  if (numberPawn === 3) typePawn = "king";
+  if (numberPawn === 4) typePawn = "queen";
+  console.log(typePawn);
+  return typePawn;
 };
 
 const checkColor = (row) => (row === 7 || row === 6 ? "white" : "black");
@@ -27,20 +31,22 @@ const setOtherPawn = (TDindex, numberPawn, color) => {
   const typePawn = checkTypePawn(numberPawn);
   return createImgWithDataSet(TDindex, numberPawn, color, typePawn);
 };
-const setUpPawn = {
+const setUpPawns = {
   0: setOtherPawn,
   1: setPawn,
-  6: setOtherPawn,
-  7: setPawn,
+
+  6: setPawn,
+  7: setOtherPawn,
 };
 const createRows = (tr, tdNumber, row) => {
   for (let coulmn = 0; coulmn < SIZE; coulmn++) {
     tdNumber++;
+
     const td = document.createElement("td");
     td.dataset.indexPos = [row, coulmn];
     td.dataset.TdIndex = tdNumber;
     if (row === 7 || row === 6 || row === 0 || row === 1)
-      setUpPawn[row](tdNumber, coulmn, checkColor(row));
+      td.appendChild(setUpPawns[row](coulmn, coulmn, checkColor(row)));
     tr.appendChild(td);
   }
 };
