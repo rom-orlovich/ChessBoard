@@ -1,38 +1,11 @@
+import { makeArray } from "./Helpers/utilitesFun.js";
 import {
-  makeArray,
+  checkDir,
+  checkIligalePos,
+  getDataFromDataSet,
+  getNextPileChild,
   movePawnToOtherPile,
-  removeEventListenerByQuery,
-  selectElement,
-  toLog,
-} from "./Helpers/helperFun.js";
-
-export const checkDir = (boardDir, color, number) =>
-  (boardDir === "1" && color === "white") ||
-  (boardDir === "2" && color === "black")
-    ? number * -1
-    : number;
-
-const checkIligalePos = (index, arr) => {
-  let length = arr.length - 1;
-  let Index = index * 1;
-  return Index > length ? length : Index < 0 ? 0 : Index;
-};
-
-export const getDataFromDataSet = (
-  el,
-  pos,
-  datasetName = "typePawn",
-  split = "-"
-) => el && el.dataset?.[datasetName]?.split(split)[pos];
-
-export const getNextPileChild = (index, arr) =>
-  arr[checkIligalePos(index, arr)]?.firstElementChild;
-
-const checkTheBoarderOfPile = (index, change, color, arr) => {
-  const nextPile = getNextPileChild(index - 7, arr);
-
-  return nextPile && getDataFromDataSet(nextPile, 3) !== color;
-};
+} from "./Helpers/pawnMovementHelpers.js";
 
 const obliquePossibleMovment = (change, curIndex, arr, color) => {
   const newIndex = checkIligalePos(curIndex + change, arr);
@@ -45,26 +18,15 @@ const obliquePossibleMovment = (change, curIndex, arr, color) => {
   const firstChildEl = getNextPileChild(newIndex, arr);
   if (firstChildEl && firstChildEl.dataset.typePawn?.split("-")[3] === color)
     return 0;
-  // toLog({
-  //   pile: arr[newIndex],
-  //   bool: getNextPileChild(newIndex, arr)?.dataset.typePawn?.split("-")[3],
-  // });
   return change;
 };
 
 const breakLoop = (change, curIndex, arrTd, color) => {
   const newPos = change + curIndex;
-
   const nextPileChild = getNextPileChild(newPos, arrTd);
   if (!nextPileChild) return;
-
   const getColorDataSet = getDataFromDataSet(nextPileChild, 3);
-  console.log(getColorDataSet);
   return getColorDataSet !== color;
-  // toLog({ newPos: getNextPileChild(newPos, arrTd) });
-  // return !(
-  //   getNextPileChild(newPos, arrTd)?.dataset.typePawn?.split("-")[3] !== color
-  // );
 };
 
 const bishopMove = (lengthLoop, curIndex, change, arrTd, color) => {
@@ -88,7 +50,7 @@ const pawnMove = (curIndex, change, arrTd, boardDir, color) => {
     : [checkDir(boardDir, color, change)];
 };
 
-export const posibleMovement = (pawnType, arrTd) => {
+export const posibleMovementsObj = (pawnType, arrTd) => {
   const [index, type, number, color, boardDir] = pawnType.split("-");
 
   const Index = index * 1;
@@ -238,35 +200,4 @@ export const posibleMovement = (pawnType, arrTd) => {
   };
 
   return res[type];
-};
-
-export const checkPosibleMovement = (
-  pawnType,
-  arrMovement,
-  arrTD,
-  addEvent = true
-) => {
-  const [index, type, number, color, boardDir] = pawnType.split("-");
-
-  arrMovement.forEach((change) => {
-    const Index = index * 1;
-    const newPos = checkIligalePos(Index + change, arrTD);
-    addEvent
-      ? arrTD[newPos].classList.add("active")
-      : arrTD[newPos].classList.remove("active");
-  });
-};
-
-export const handleClickPawn = (dataSetInfo, posibleMoves, arrTD) => {
-  const [index, type, number, color, boardDir] = dataSetInfo.split("-");
-  const curIndex = index * 1;
-  posibleMoves.forEach((el) => {
-    const newIndex = checkIligalePos(curIndex + el, arrTD);
-    arrTD[newIndex].addEventListener("click", (e) => {
-      const indexPosTDClick = e.target.dataset?.indexPos;
-      if (!indexPosTDClick) return;
-      arrTD[newIndex].classList.add("active");
-      movePawnToOtherPile(curIndex, indexPosTDClick);
-    });
-  });
 };

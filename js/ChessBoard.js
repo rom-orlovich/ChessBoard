@@ -3,7 +3,7 @@ import {
   SIZE,
   checkColor,
   checkPawnType,
-} from "./ChessBoardHelpers.js";
+} from "./Helpers/ChessBoardHelpers.js";
 
 export class ChessBoard {
   parentEl = document.querySelector("#container_ChessBoard");

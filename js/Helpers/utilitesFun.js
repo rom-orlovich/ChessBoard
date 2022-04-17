@@ -4,6 +4,7 @@ export const toLog = (vars) => {
     console.log(el, vars[el]);
   });
 };
+export const makeArrayToSet = (arr) => [...new Set(arr)];
 export const createEl = (str) => {
   const temp = document.createElement("template");
   temp.innerHTML = str.trim();
@@ -35,8 +36,6 @@ export const addEventListenerByQueryAll = (nameEvent, handler, query) => {
   elements.forEach((el) => el.addEventListener(nameEvent, handler));
   return elements;
 };
-// לכתוב פונקציית ברייקר
-export const makeArrayToSet = (arr) => [...new Set(arr)];
 
 export const makeArray = (
   num,
@@ -75,23 +74,8 @@ export const genrateObjKeyValueToArr = (obj) => {
   return makeArrayToSet(arr);
 };
 
-const editDataSet = (newStr, pos, querySplit, str) => {
+export const editDataSet = (newStr, pos, querySplit, str) => {
   const arrStr = str.split(querySplit)?.slice();
   arrStr[pos] = newStr;
   return arrStr.join(querySplit);
-};
-
-export const movePawnToOtherPile = (queryPos, newPos) => {
-  const choosenImg = selectElement(`img[data-type-pawn*="${queryPos}"]`);
-  const choosenTD = selectElement(`td[data-index-pos*="${newPos}"]`);
-  if (!(choosenImg && choosenTD)) return;
-  const dataSetImg = choosenImg?.dataset?.typePawn;
-  const indexPile = choosenTD?.dataset.indexPile;
-  choosenImg.dataset.typePawn = editDataSet(indexPile, 0, "-", dataSetImg);
-  choosenImg?.parentNode?.removeChild(choosenImg);
-  return (
-    !choosenTD?.firstElementChild &&
-    choosenTD.appendChild(choosenImg) &&
-    choosenTD.classList.remove("active")
-  );
 };

@@ -1,17 +1,17 @@
 import {
+  handleClickPawn,
+  handlePosibleMovment,
+} from "./Helpers/handleEventFun.js";
+import {
   selectElement,
   addEventListenerByQuery,
   getObjKeyWithValue,
   genrateObjKeyValueToArr,
   toLog,
-} from "./Helpers/helperFun.js";
-import {
-  checkPosibleMovement,
-  handleClickPawn,
-  posibleMovement,
-} from "./PawnsMovement.js";
+} from "./Helpers/utilitesFun.js";
+import { posibleMovementsObj } from "./pawnsMovement.js";
 
-export class PlayGame {
+export class GameEvents {
   dataTd;
   _tdBoardChess;
   _vtDom;
@@ -56,14 +56,14 @@ export class PlayGame {
   }
 
   handleMouseOver(dataSetInfo, arrTD, addEvent = true) {
-    let { normalMove, eatMove } = posibleMovement(dataSetInfo, this.dataTd);
+    let { normalMove, eatMove } = posibleMovementsObj(dataSetInfo, this.dataTd);
     normalMove = getObjKeyWithValue(normalMove);
     let allMovement = genrateObjKeyValueToArr(normalMove);
-    checkPosibleMovement(dataSetInfo, allMovement, arrTD, addEvent);
+    handlePosibleMovment(dataSetInfo, allMovement, arrTD, addEvent);
   }
 
   handlerClickMovement(dataSetInfo, arrTD) {
-    let { normalMove, eatMove } = posibleMovement(dataSetInfo, arrTD);
+    let { normalMove, eatMove } = posibleMovementsObj(dataSetInfo, arrTD);
     let allMovement = genrateObjKeyValueToArr(normalMove);
     handleClickPawn(dataSetInfo, allMovement, arrTD);
   }

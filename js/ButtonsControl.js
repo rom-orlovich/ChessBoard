@@ -1,4 +1,4 @@
-import { addEventListenerByQuery } from "./Helpers/helperFun.js";
+import { addEventListenerByQuery } from "./Helpers/utilitesFun.js";
 
 const pawnsPosHandler = (e, handler) => {
   const target = e.target;

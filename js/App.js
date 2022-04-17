@@ -1,7 +1,7 @@
 // import { ChessBoard } from "./ChessBoardt.js";
 import { ButtonControlInit } from "./ButtonsControl.js";
-import { PlayGame } from "./PlayGame.js";
-import { movePawnToOtherPile } from "./Helpers/helperFun.js";
+import { GameEvents } from "./GameEvents.js";
+
 import { ChessBoard } from "./ChessBoard.js";
 
 ButtonControlInit();
@@ -13,6 +13,6 @@ ButtonControlInit((color) => {
   chess.render(false);
 });
 
-const playGame = new PlayGame();
+const gameEvents = new GameEvents();
 
-playGame.initAddEvent(chess.tdBoardChess);
+gameEvents.initAddEvent(chess.tdBoardChess);

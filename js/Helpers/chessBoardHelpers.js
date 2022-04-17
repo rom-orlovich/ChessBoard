@@ -1,5 +1,6 @@
-import { createEl, createImgHtml } from "./Helpers/helperFun.js";
-import { dataImg } from "./Helpers/ChessPawns.js";
+import { dataImg } from "./chessPawnsData.js";
+import { createEl, createImgHtml } from "./utilitesFun.js";
+
 export const SIZE = 8;
 
 export const checkColor = (row, setFirst, setSec) =>
