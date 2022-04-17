@@ -21,6 +21,11 @@ table {
 table,
 td {
   border: 1.2px solid rgba(28, 27, 27, 1);
+  position: relative;
+}
+
+img {
+  z-index: 100;
 }
 
 /* black square  */
