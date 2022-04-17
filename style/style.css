@@ -93,3 +93,6 @@ button:hover {
 .active {
   background-color: #2e2eb561 !important;
 }
+.unActive {
+  background-color: inherit;
+}

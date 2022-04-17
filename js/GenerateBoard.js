@@ -1,5 +1,20 @@
-import { createEl } from "./Helpers/helperFun.js";
+const setOtherSolider = () => {
+  let typePawn = "";
+  let innerHtml = "";
+  if (i === 0 || i === arr.length - 1) typePawn = "rook";
+  else if (i === 1 || i === arr.length - 2) typePawn = "knight";
+  else if (i === 2 || i === arr.length - 3) typePawn = "bishop";
+  else if (i === 3) typePawn = "queen";
+  else if (i === 4) typePawn = "king";
 
+  innerHtml = createImgHtml(dataImg[color][typePawn].src);
+  const pawnImg = createEl(innerHtml);
+
+  pawnImg.dataset.typePawn = `${el.dataset.indexTD}-${typePawn}-${i}-${color}`;
+  pawnImg.classList.add("center-abs");
+  el.appendChild(pawnImg);
+};
+const chessSetUp = {};
 export class GenerateBoard {
   _vtDom;
   _tdBoardChess;
@@ -23,88 +38,6 @@ export class GenerateBoard {
     table.appendChild(tbody);
 
     return table;
-    // return createEl(`<table><tbody>
-    // <tr>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    // </tr>
-    // <tr>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    // </tr>
-    // <tr>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    // </tr>
-    // <tr>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    // </tr>
-    // <tr>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    // </tr>
-    // <tr>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    // </tr>
-    // <tr>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    // </tr>
-    // <tr>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    //   <td></td>
-    // </tr>
-    // </tbody></table>`);
   }
   initChessBoard() {
     this.parentEl.innerHTML = "";
