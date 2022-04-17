@@ -6,10 +6,11 @@ export const checkDir = (boardDir, color, number) =>
     ? number * -1
     : number;
 
-export const checkIligalePos = (index, arr) => {
+export const checkIligalePos = (newIndex, curIndex, arr) => {
   let length = arr.length - 1;
-  let Index = index * 1;
-  return Index > length ? length : Index < 0 ? 0 : Index;
+  let NewIndex = newIndex * 1;
+  return NewIndex > length || NewIndex < 0 ? curIndex : NewIndex;
+  // return Index > length ? length : Index < 0 ? 0 : Index;
 };
 
 export const getDataFromDataSet = (
@@ -19,11 +20,11 @@ export const getDataFromDataSet = (
   split = "-"
 ) => el && el.dataset?.[datasetName]?.split(split)[pos];
 
-export const getNextPileChild = (index, arr) =>
-  arr[checkIligalePos(index, arr)]?.firstElementChild;
+export const getNextPileChild = (index, curIndex, arr) =>
+  arr[checkIligalePos(index, curIndex, arr)]?.firstElementChild;
 
-export const checkTheBoarderOfPile = (index, change, color, arr) => {
-  const nextPile = getNextPileChild(index - 7, arr);
+export const checkTheBoarderOfPile = (curIndex, change, color, arr) => {
+  const nextPile = getNextPileChild(curIndex - 7, curIndex, arr);
   return nextPile && getDataFromDataSet(nextPile, 3) !== color;
 };
 

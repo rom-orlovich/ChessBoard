@@ -8,14 +8,14 @@ import {
 } from "./Helpers/pawnMovementHelpers.js";
 
 const obliquePossibleMovment = (change, curIndex, arr, color) => {
-  const newIndex = checkIligalePos(curIndex + change, arr);
+  const newIndex = checkIligalePos(curIndex + change, curIndex, arr);
   const [row, coulmn] = arr[curIndex]?.dataset.indexPos.split(",");
   const [rowNext, coulmnNext] = arr[newIndex]?.dataset.indexPos.split(",");
 
   if (Math.abs(rowNext - row) !== Math.abs(coulmnNext - coulmn)) {
     return 0;
   }
-  const firstChildEl = getNextPileChild(newIndex, arr);
+  const firstChildEl = getNextPileChild(newIndex, curIndex, arr);
   if (firstChildEl && firstChildEl.dataset.typePawn?.split("-")[3] === color)
     return 0;
   return change;
@@ -23,14 +23,14 @@ const obliquePossibleMovment = (change, curIndex, arr, color) => {
 
 const breakLoop = (change, curIndex, arrTd, color) => {
   const newPos = change + curIndex;
-  const nextPileChild = getNextPileChild(newPos, arrTd);
+  const nextPileChild = getNextPileChild(newPos, curIndex, arrTd);
   if (!nextPileChild) return;
   const getColorDataSet = getDataFromDataSet(nextPileChild, 3);
   return getColorDataSet !== color;
 };
 
 const bishopMove = (lengthLoop, curIndex, change, arrTd, color) => {
-  const nextPileChild = getNextPileChild(curIndex + change, arrTd);
+  const nextPileChild = getNextPileChild(curIndex + change, curIndex, arrTd);
   const getColorDataSet = getDataFromDataSet(nextPileChild, 3);
   return getColorDataSet === color
     ? []
@@ -41,9 +41,11 @@ const bishopMove = (lengthLoop, curIndex, change, arrTd, color) => {
       );
 };
 
+//add the options to move twice in the first turn
 const pawnMove = (curIndex, change, arrTd, boardDir, color) => {
   return getNextPileChild(
     curIndex + checkDir(boardDir, color, change),
+    curIndex,
     arrTd
   )?.dataset.typePawn?.split("-")[3] === color
     ? []

@@ -11,6 +11,8 @@ export class ChessBoard {
   curTable;
   tdBoardChess;
   boardDir = 1;
+  turnsPlayer1 = 0;
+  turnPlayer2 = 0;
   chessPawnSetUp = {
     0: this.setOtherPawns,
     1: this.setPawns,

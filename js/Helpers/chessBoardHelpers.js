@@ -5,6 +5,7 @@ export const SIZE = 8;
 
 export const checkColor = (row, setFirst, setSec) =>
   row === 6 || row === 7 ? setFirst : setSec;
+
 export const checkPawnType = (indexPawns) => {
   if (indexPawns === 0 || indexPawns === SIZE - 1) return "rook";
   else if (indexPawns === 1 || indexPawns === SIZE - 2) return "knight";
