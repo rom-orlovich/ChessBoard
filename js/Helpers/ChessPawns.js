@@ -1,6 +1,6 @@
 export const dataImg = {
   white: {
-    soldier: {
+    pawn: {
       src: "./assets/white/Chess_plt60.png",
     },
     bishop: {
@@ -20,7 +20,7 @@ export const dataImg = {
     },
   },
   black: {
-    soldier: {
+    pawn: {
       src: "./assets/black/Chess_pdt60.png",
     },
     bishop: {

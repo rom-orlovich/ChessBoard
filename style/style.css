@@ -90,6 +90,17 @@ button:hover {
 }
 /*pawn active*/
 
+/* .rotate0Img {
+  transform: rotate(0deg) translate(-50%, -50%);
+} */
+.rotate180Img {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
 .active {
   background-color: #2e2eb561 !important;
 }

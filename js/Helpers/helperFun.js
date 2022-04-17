@@ -91,8 +91,8 @@ export const movePawnToOtherPile = (queryPos, newPos) => {
   if (!(choosenImg && choosenTD)) return;
 
   const dataSetImg = choosenImg?.dataset?.typePawn;
-  const indexTD = choosenTD?.dataset.indexTD;
-  choosenImg.dataset.typePawn = editDataSet(indexTD, 0, "-", dataSetImg);
+  const indexPile = choosenTD?.dataset.indexPile;
+  choosenImg.dataset.typePawn = editDataSet(indexPile, 0, "-", dataSetImg);
   choosenImg?.parentNode?.removeChild(choosenImg);
   return !choosenTD?.firstElementChild && choosenTD.appendChild(choosenImg);
 };

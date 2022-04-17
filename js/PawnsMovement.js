@@ -6,9 +6,9 @@ import {
   toLog,
 } from "./Helpers/helperFun.js";
 
-export const checkDir = (playerTurn, color, number) =>
-  (playerTurn === "1" && color === "white") ||
-  (playerTurn === "2" && color === "black")
+export const checkDir = (boardDir, color, number) =>
+  (boardDir === "1" && color === "white") ||
+  (boardDir === "2" && color === "black")
     ? number * -1
     : number;
 
@@ -80,17 +80,17 @@ const bishopMove = (lengthLoop, curIndex, change, arrTd, color) => {
       );
 };
 
-const pawnMove = (curIndex, change, arrTd, playerTurn, color) => {
+const pawnMove = (curIndex, change, arrTd, boardDir, color) => {
   return getNextPileChild(
-    curIndex + checkDir(playerTurn, color, change),
+    curIndex + checkDir(boardDir, color, change),
     arrTd
   )?.dataset.typePawn?.split("-")[3] === color
     ? []
-    : [checkDir(playerTurn, color, change)];
+    : [checkDir(boardDir, color, change)];
 };
 
 export const posibleMovement = (pawnType, arrTd) => {
-  const [index, type, number, color, playerTurn] = pawnType.split("-");
+  const [index, type, number, color, boardDir] = pawnType.split("-");
   // console.log(index);
   const Index = index * 1;
   // console.log(Index);
@@ -107,13 +107,13 @@ export const posibleMovement = (pawnType, arrTd) => {
         obliqueRightBackWard: undefined,
         left: undefined,
         right: undefined,
-        foward: pawnMove(Index, 8, arrTd, playerTurn, color),
+        foward: pawnMove(Index, 8, arrTd, boardDir, color),
         backward: undefined,
       },
 
       eatMove: {
-        obliqueLeftFoward: pawnMove(Index, 9, arrTd, playerTurn, color),
-        obliqueRightFoward: pawnMove(Index, 7, arrTd, playerTurn, color),
+        obliqueLeftFoward: pawnMove(Index, 9, arrTd, boardDir, color),
+        obliqueRightFoward: pawnMove(Index, 7, arrTd, boardDir, color),
         obliqueLeftBackWard: undefined,
         obliqueRightBackWard: undefined,
         left: undefined,
@@ -159,16 +159,6 @@ export const posibleMovement = (pawnType, arrTd) => {
       },
 
       eatMove: {
-        obliqueLeftFoward: [6, 15],
-        obliqueRightFoward: [8, 17],
-        obliqueLeftBackWard: [-6, -15],
-        obliqueRightBackWard: [-8, -17],
-        left: undefined,
-        right: undefined,
-        foward: undefined,
-        backward: undefined,
-      },
-      illegalMove: {
         obliqueLeftFoward: [6, 15],
         obliqueRightFoward: [8, 17],
         obliqueLeftBackWard: [-6, -15],
@@ -254,23 +244,23 @@ export const posibleMovement = (pawnType, arrTd) => {
 };
 
 export const checkPosibleMovement = (pawnType, arrMovement, arrTD) => {
-  const [index, type, number, color, playerTurn] = pawnType.split("-");
+  const [index, type, number, color, boardDir] = pawnType.split("-");
 
   arrMovement.forEach((change) => {
     const Index = index * 1;
     const newPos = checkIligalePos(Index + change, arrTD);
 
-    // arrTD[Index].firstElementChild?.addEventListener("mouseenter", (e) => {
-    //   arrTD[newPos].classList.add("active");
-    // });
-    // arrTD[Index].firstElementChild?.addEventListener("mouseleave", (e) => {
-    //   arrTD[newPos].classList.remove("active");
-    // });
+    arrTD[Index].firstElementChild?.addEventListener("mouseenter", (e) => {
+      arrTD[newPos].classList.add("active");
+    });
+    arrTD[Index].firstElementChild?.addEventListener("mouseleave", (e) => {
+      arrTD[newPos].classList.remove("active");
+    });
   });
 };
 
 export const handleClickPawn = (dataSetInfo, posibleMoves, arrTD) => {
-  const [index, type, number, color, playerTurn] = dataSetInfo.split("-");
+  const [index, type, number, color, boardDir] = dataSetInfo.split("-");
   const curIndex = index * 1;
 
   posibleMoves.forEach((el) => {

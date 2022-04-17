@@ -1,4 +1,3 @@
-import { GenerateBoard } from "./GenerateBoard.js";
 import {
   selectElement,
   addEventListenerByQuery,
@@ -12,7 +11,7 @@ import {
   posibleMovement,
 } from "./PawnsMovement.js";
 
-export class PlayGame extends GenerateBoard {
+export class PlayGame {
   dataTd;
   _tdBoardChess;
   _vtDom;
@@ -68,14 +67,5 @@ export class PlayGame extends GenerateBoard {
     let allMovement = genrateObjKeyValueToArr(normalMove);
 
     handleClickPawn(dataSetInfo, allMovement, arrTD);
-  }
-
-  newBoardHtml() {
-    this.dataTd.forEach((el, i) => {
-      this._tdBoardChess[i].replaceChild(
-        el.firstElementChild,
-        this._tdBoardChess[i].firstElementChild
-      );
-    });
   }
 }
