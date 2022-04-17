@@ -47,7 +47,6 @@ export class ChessBoard {
             this.boardDir,
             checkColor(row, "white", "black")
           );
-
         tr.appendChild(td);
       }
       tr.dataset.rowIndex = row;

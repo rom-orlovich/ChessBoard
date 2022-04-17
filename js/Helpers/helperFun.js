@@ -41,14 +41,13 @@ export const makeArrayToSet = (arr) => [...new Set(arr)];
 export const makeArray = (
   num,
   handler = undefined,
-  toContinue = (i) => false
+  breakFun = (i) => false
 ) => {
   const arr = [];
   for (let i = 1; i < num; i++) {
-    // toLog({ toContinue: toContinue(i) });
-    // const toContinueRes = toContinue(i);
-    // if (toContinueRes) continue;
+    const breakRes = breakFun(i);
     handler ? arr.push(handler(i)) : arr.push(i);
+    if (breakRes) break;
   }
 
   return makeArrayToSet(arr);
@@ -83,16 +82,16 @@ const editDataSet = (newStr, pos, querySplit, str) => {
 };
 
 export const movePawnToOtherPile = (queryPos, newPos) => {
-  // console.log("queryPos", queryPos, "newPos", newPos);
   const choosenImg = selectElement(`img[data-type-pawn*="${queryPos}"]`);
   const choosenTD = selectElement(`td[data-index-pos*="${newPos}"]`);
-
-  // console.log("choosenImg", choosenImg, "choosenTD", choosenTD);
   if (!(choosenImg && choosenTD)) return;
-
   const dataSetImg = choosenImg?.dataset?.typePawn;
   const indexPile = choosenTD?.dataset.indexPile;
   choosenImg.dataset.typePawn = editDataSet(indexPile, 0, "-", dataSetImg);
   choosenImg?.parentNode?.removeChild(choosenImg);
-  return !choosenTD?.firstElementChild && choosenTD.appendChild(choosenImg);
+  return (
+    !choosenTD?.firstElementChild &&
+    choosenTD.appendChild(choosenImg) &&
+    choosenTD.classList.remove("active")
+  );
 };

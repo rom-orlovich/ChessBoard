@@ -26,7 +26,6 @@ export class PlayGame {
       (e) => {
         const dataSetInfo = e.target.dataset.typePawn;
         if (!dataSetInfo) return;
-
         this.handlerClickMovement(dataSetInfo, this.dataTd);
       },
       "#container_ChessBoard"
@@ -34,7 +33,8 @@ export class PlayGame {
     addEventListenerByQuery(
       "mouseover",
       (e) => {
-        const dataSetInfo = e.target?.dataset?.typePawn;
+        const target = e.target;
+        const dataSetInfo = target?.dataset?.typePawn;
         if (!dataSetInfo) return;
         e.target.parentElement.classList.add("active");
         this.handleMouseOver(dataSetInfo, this.dataTd);
@@ -46,26 +46,25 @@ export class PlayGame {
       "mouseout",
       (e) => {
         const target = e.target;
-        if (!target?.dataset?.typePawn) return;
+        const dataSetInfo = target?.dataset?.typePawn;
+        if (!dataSetInfo) return;
         e.target.parentElement.classList.remove("active");
+        this.handleMouseOver(dataSetInfo, this.dataTd, false);
       },
       "#container_ChessBoard"
     );
   }
 
-  handleMouseOver(dataSetInfo, arrTD) {
+  handleMouseOver(dataSetInfo, arrTD, addEvent = true) {
     let { normalMove, eatMove } = posibleMovement(dataSetInfo, this.dataTd);
     normalMove = getObjKeyWithValue(normalMove);
     let allMovement = genrateObjKeyValueToArr(normalMove);
-
-    checkPosibleMovement(dataSetInfo, allMovement, arrTD);
+    checkPosibleMovement(dataSetInfo, allMovement, arrTD, addEvent);
   }
 
   handlerClickMovement(dataSetInfo, arrTD) {
     let { normalMove, eatMove } = posibleMovement(dataSetInfo, arrTD);
-
     let allMovement = genrateObjKeyValueToArr(normalMove);
-
     handleClickPawn(dataSetInfo, allMovement, arrTD);
   }
 }

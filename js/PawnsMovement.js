@@ -30,8 +30,7 @@ export const getNextPileChild = (index, arr) =>
 
 const checkTheBoarderOfPile = (index, change, color, arr) => {
   const nextPile = getNextPileChild(index - 7, arr);
-  // toLog({ nextPile });
-  // toLog({ nextPile, bool: getDataFromDataSet(nextPile, 3) !== color });
+
   return nextPile && getDataFromDataSet(nextPile, 3) !== color;
 };
 
@@ -53,30 +52,30 @@ const obliquePossibleMovment = (change, curIndex, arr, color) => {
   return change;
 };
 
-// const makeCountinueLoop = (change, curIndex, arrTd, color) => {
-//   const newPos = checkIligalePos(change + curIndex, arrTd);
-//   // toLog({ newPos });
-//   // console.log(getNextPileChild(newPos, arrTd));
-//   // if (
-//   //   getNextPileChild(newPos, arrTd)?.dataset.typePawn?.split("-")[3] !== color
-//   // )
-//   toLog({ newPos: getNextPileChild(newPos, arrTd) });
-//   return !(
-//     getNextPileChild(newPos, arrTd)?.dataset.typePawn?.split("-")[3] !== color
-//   );
-// };
+const breakLoop = (change, curIndex, arrTd, color) => {
+  const newPos = change + curIndex;
+
+  const nextPileChild = getNextPileChild(newPos, arrTd);
+  if (!nextPileChild) return;
+
+  const getColorDataSet = getDataFromDataSet(nextPileChild, 3);
+  console.log(getColorDataSet);
+  return getColorDataSet !== color;
+  // toLog({ newPos: getNextPileChild(newPos, arrTd) });
+  // return !(
+  //   getNextPileChild(newPos, arrTd)?.dataset.typePawn?.split("-")[3] !== color
+  // );
+};
 
 const bishopMove = (lengthLoop, curIndex, change, arrTd, color) => {
-  return getNextPileChild(curIndex + change, arrTd)?.dataset.typePawn?.split(
-    "-"
-  )[3] === color
+  const nextPileChild = getNextPileChild(curIndex + change, arrTd);
+  const getColorDataSet = getDataFromDataSet(nextPileChild, 3);
+  return getColorDataSet === color
     ? []
     : makeArray(
         lengthLoop,
-        (i) => obliquePossibleMovment(i * change, curIndex, arrTd, color)
-        // (i) => {
-        //   return makeCountinueLoop(i * change, curIndex, arrTd, color);
-        // }
+        (i) => obliquePossibleMovment(i * change, curIndex, arrTd, color),
+        (i) => breakLoop(i * change, curIndex, arrTd, color)
       );
 };
 
@@ -91,11 +90,9 @@ const pawnMove = (curIndex, change, arrTd, boardDir, color) => {
 
 export const posibleMovement = (pawnType, arrTd) => {
   const [index, type, number, color, boardDir] = pawnType.split("-");
-  // console.log(index);
+
   const Index = index * 1;
-  // console.log(Index);
-  // console.log(arrTd[Index]);
-  // console.log(arrTd[Index].dataset?.indexPos);
+
   const [row, column] = arrTd[Index]?.dataset.indexPos.split(",");
   const Row = row * 1;
   const res = {
@@ -243,32 +240,32 @@ export const posibleMovement = (pawnType, arrTd) => {
   return res[type];
 };
 
-export const checkPosibleMovement = (pawnType, arrMovement, arrTD) => {
+export const checkPosibleMovement = (
+  pawnType,
+  arrMovement,
+  arrTD,
+  addEvent = true
+) => {
   const [index, type, number, color, boardDir] = pawnType.split("-");
 
   arrMovement.forEach((change) => {
     const Index = index * 1;
     const newPos = checkIligalePos(Index + change, arrTD);
-
-    arrTD[Index].firstElementChild?.addEventListener("mouseenter", (e) => {
-      arrTD[newPos].classList.add("active");
-    });
-    arrTD[Index].firstElementChild?.addEventListener("mouseleave", (e) => {
-      arrTD[newPos].classList.remove("active");
-    });
+    addEvent
+      ? arrTD[newPos].classList.add("active")
+      : arrTD[newPos].classList.remove("active");
   });
 };
 
 export const handleClickPawn = (dataSetInfo, posibleMoves, arrTD) => {
   const [index, type, number, color, boardDir] = dataSetInfo.split("-");
   const curIndex = index * 1;
-
   posibleMoves.forEach((el) => {
     const newIndex = checkIligalePos(curIndex + el, arrTD);
     arrTD[newIndex].addEventListener("click", (e) => {
       const indexPosTDClick = e.target.dataset?.indexPos;
       if (!indexPosTDClick) return;
-
+      arrTD[newIndex].classList.add("active");
       movePawnToOtherPile(curIndex, indexPosTDClick);
     });
   });
