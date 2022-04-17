@@ -1,13 +1,13 @@
 "use strict;";
 
-const generateTable = (numRows = 8, numCoulmns = 8) => {
+const generateTable = (size = 8) => {
   const table = document.createElement("table");
   const tbody = document.createElement("tbody");
   let tdNumber = -1;
-  for (let row = 0; row < numRows; row++) {
+  for (let row = 0; row < size; row++) {
     const tr = document.createElement("tr");
     tr.dataset.indexRow = row;
-    for (let coulmn = 0; coulmn < numCoulmns; coulmn++) {
+    for (let coulmn = 0; coulmn < size; coulmn++) {
       tdNumber++;
       const td = document.createElement("td");
       td.dataset.indexPos = [row, coulmn];
@@ -30,4 +30,4 @@ const appendToDom = (newEl, query) => {
   parentEl.appendChild(newEl);
 };
 
-appendToDom(generateTable(8, 8), "#container_ChessBoard");
+appendToDom(generateTable(), "#container_ChessBoard");
