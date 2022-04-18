@@ -15,8 +15,16 @@ export class GameEvents {
   dataTd;
   _tdBoardChess;
   _vtDom;
+
+  constructor(gameState) {
+    this.gameState = gameState;
+  }
   initChessBoardControl(arr) {
     this.dataTd = arr;
+  }
+  setBoardDir(num) {
+    console.log(this.gameState);
+    // this.gameState.boardDir = num;
   }
 
   initAddEvent(dataTd) {
@@ -56,14 +64,22 @@ export class GameEvents {
   }
 
   handleMouseOver(dataSetInfo, arrTD, addEvent = true) {
-    let { normalMove, eatMove } = posibleMovementsObj(dataSetInfo, this.dataTd);
+    let { normalMove, eatMove } = posibleMovementsObj(
+      dataSetInfo,
+      this.dataTd,
+      this.gameState
+    );
     normalMove = getObjKeyWithValue(normalMove);
     let allMovement = genrateObjKeyValueToArr(normalMove);
     handlePosibleMovment(dataSetInfo, allMovement, arrTD, addEvent);
   }
 
   handlerClickMovement(dataSetInfo, arrTD) {
-    let { normalMove, eatMove } = posibleMovementsObj(dataSetInfo, arrTD);
+    let { normalMove, eatMove } = posibleMovementsObj(
+      dataSetInfo,
+      arrTD,
+      this.gameState
+    );
     let allMovement = genrateObjKeyValueToArr(normalMove);
     handleClickPawn(dataSetInfo, allMovement, arrTD);
   }

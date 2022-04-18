@@ -11,8 +11,6 @@ export class ChessBoard {
   curTable;
   tdBoardChess;
   boardDir = 1;
-  turnsPlayer1 = 0;
-  turnPlayer2 = 0;
   chessPawnSetUp = {
     0: this.setOtherPawns,
     1: this.setPawns,
@@ -59,17 +57,36 @@ export class ChessBoard {
     return table;
   }
 
-  changeDirBoard(color) {
-    this.boardDir = color === "white" ? 1 : 2;
-    this.boardDir === 2
+  changeDirBoard(color, boardDir, setBoardDir) {
+    // console.log(boardDir);
+    // let { dir } = boardDir;
+
+    setBoardDir(color === "white" ? 1 : 2);
+    // console.log(dir);
+    // console.log(boardDir);
+    // this.boardDir = color === "white" ? 1 : 2;
+
+    // this.boardDir === 2
+    //   ? this.parentEl?.classList.add("rotate180")
+    //   : this.parentEl?.classList.remove("rotate180");
+    console.log(boardDir);
+    boardDir === 2
       ? this.parentEl?.classList.add("rotate180")
       : this.parentEl?.classList.remove("rotate180");
 
+    // this.makeTDArr();
+    // this.tdBoardChess.forEach((el) => {
+    //   const img = el?.firstElementChild;
+    //   if (!img) return;
+    //   this.boardDir === 2
+    //     ? img.classList.add("rotate180Img")
+    //     : img.classList.remove("rotate180Img");
+    // });
     this.makeTDArr();
     this.tdBoardChess.forEach((el) => {
       const img = el?.firstElementChild;
       if (!img) return;
-      this.boardDir === 2
+      boardDir === 2
         ? img.classList.add("rotate180Img")
         : img.classList.remove("rotate180Img");
     });

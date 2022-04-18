@@ -52,11 +52,12 @@ const pawnMove = (curIndex, change, arrTd, boardDir, color) => {
     : [checkDir(boardDir, color, change)];
 };
 
-export const posibleMovementsObj = (pawnType, arrTd) => {
-  const [index, type, number, color, boardDir] = pawnType.split("-");
-
+export const posibleMovementsObj = (pawnType, arrTd, gameState) => {
+  const [index, type, number, color] = pawnType.split("-");
+  console.log(gameState);
+  const { boardDir, playerTurns, points, eatenPawns } = gameState;
   const Index = index * 1;
-
+  // console.log(boardDir);
   const [row, column] = arrTd[Index]?.dataset.indexPos.split(",");
   const Row = row * 1;
   const res = {
