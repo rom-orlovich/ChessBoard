@@ -51,7 +51,7 @@ const breakLoop = (change, curIndex, arrTd, color) => {
 const bishopMove = (type, lengthLoop, curIndex, change, arrTd, color) => {
   const nextPileChild = getNextPileChild(curIndex + change, curIndex, arrTd);
   const getColorDataSet = getDataFromDataSet(nextPileChild, 3);
-  return getColorDataSet === color && type !== "bishop"
+  return getColorDataSet === color || type !== "bishop"
     ? []
     : makeArray(
         lengthLoop,
@@ -60,11 +60,11 @@ const bishopMove = (type, lengthLoop, curIndex, change, arrTd, color) => {
       );
 };
 
-const rookMove = (lengthLoop, curIndex, change, arrTd, color) => {
+const rookMove = (type, lengthLoop, curIndex, change, arrTd, color) => {
   const nextPileChild = getNextPileChild(curIndex + change, curIndex, arrTd);
   const getColorDataSet = getDataFromDataSet(nextPileChild, 3);
 
-  return getColorDataSet === color && type !== "rook"
+  return getColorDataSet === color || type !== "rook"
     ? []
     : makeArray(
         lengthLoop,
