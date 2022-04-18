@@ -74,8 +74,10 @@ export const genrateObjKeyValueToArr = (obj) => {
   return makeArrayToSet(arr);
 };
 
-export const editDataSet = (newStr, pos, querySplit, str) => {
+export const editDataSet = (str, pos, newStr, querySplit = "-") => {
   const arrStr = str.split(querySplit)?.slice();
   arrStr[pos] = newStr;
   return arrStr.join(querySplit);
 };
+
+//settimeoutfun implement

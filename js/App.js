@@ -17,15 +17,14 @@ const gameState = {
 const stateM = new state();
 const gameManageState = stateM.useState(gameState);
 
-ButtonControlInit();
 const chess = new ChessBoard();
+const gameEvents = new GameEvents();
+
 const changeDirOfBoard = (color) => {
   chess.changeDirBoard(color, gameManageState);
   chess.render(false);
 };
-chess.render();
-const gameEvents = new GameEvents();
 
 ButtonControlInit(changeDirOfBoard);
 
-gameEvents.initAddEvent(chess.tdBoardChess, gameManageState);
+gameEvents.initAddEvent(chess.tdBoardChess, gameManageState, changeDirOfBoard);

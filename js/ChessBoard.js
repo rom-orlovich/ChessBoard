@@ -17,14 +17,17 @@ export class ChessBoard {
     6: this.setPawns,
     7: this.setOtherPawns,
   };
-
-  setPawns(td, pawnIndex, indexPile, boardDir, color) {
-    setPawnImg(td, "pawn", pawnIndex, indexPile, color, boardDir);
+  constructor() {
+    this.render();
   }
 
-  setOtherPawns(td, pawnIndex, indexPile, boardDir, color) {
+  setPawns(td, pawnIndex, indexPile, color, moveTimes = 0) {
+    setPawnImg(td, "pawn", pawnIndex, indexPile, color, moveTimes);
+  }
+
+  setOtherPawns(td, pawnIndex, indexPile, color, moveTimes = undefined) {
     let typePawn = checkPawnType(pawnIndex);
-    setPawnImg(td, typePawn, pawnIndex, indexPile, color, boardDir);
+    setPawnImg(td, typePawn, pawnIndex, indexPile, color, moveTimes);
   }
 
   generateTable() {
@@ -44,7 +47,7 @@ export class ChessBoard {
             td,
             coulmn,
             indexPile,
-            this.boardDir,
+
             checkColor(row, "white", "black")
           );
         tr.appendChild(td);
@@ -57,23 +60,6 @@ export class ChessBoard {
     return table;
   }
 
-  // changeDirBoard(color, gameState, setGameState) {
-  //   gameState.boardDir = color === "white" ? 1 : 2;
-
-  //   gameState.boardDir === 2
-  //     ? this.parentEl?.classList.add("rotate180")
-  //     : this.parentEl?.classList.remove("rotate180");
-
-  //   this.tdBoardChess.forEach((el) => {
-  //     const img = el?.firstElementChild;
-  //     if (!img) return;
-  //     gameState.boardDir === 2
-  //       ? img.classList.add("rotate180Img")
-  //       : img.classList.remove("rotate180Img");
-  //   });
-
-  //   setGameState(gameState);
-  // }
   changeDirBoard(color, stateMangement) {
     const [gameState, setState] = stateMangement;
     gameState.boardDir = color === "white" ? 1 : 2;
@@ -89,8 +75,6 @@ export class ChessBoard {
         ? img.classList.add("rotate180Img")
         : img.classList.remove("rotate180Img");
     });
-
-    // setGameState(gameState);
   }
   makeTDArr() {
     this.vtDom = document.createDocumentFragment().appendChild(this.curTable);

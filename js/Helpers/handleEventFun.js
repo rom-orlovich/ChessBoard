@@ -1,4 +1,8 @@
-import { checkIligalePos, movePawnToOtherPile } from "./pawnMovementHelpers.js";
+import {
+  checkIligalePos,
+  editDatasSetByQuery,
+  movePawnToOtherPile,
+} from "./pawnMovementHelpers.js";
 
 export const handlePosibleMovment = (
   pawnType,
@@ -6,7 +10,7 @@ export const handlePosibleMovment = (
   arrTD,
   addEvent = true
 ) => {
-  const [index, type, number, color, boardDir] = pawnType.split("-");
+  const [index, type, number, color] = pawnType.split("-");
 
   arrMovement.forEach((change) => {
     const Index = index * 1;
@@ -17,17 +21,26 @@ export const handlePosibleMovment = (
   });
 };
 
-export const handleClickPawn = (dataSetInfo, posibleMoves, arrTD) => {
-  const [index, type, number, color, boardDir] = dataSetInfo.split("-");
+export const handleClickPawn = (
+  pawnType,
+  posibleMoves,
+  arrTD,
+  handleAfterClick
+) => {
+  let [index, type, number, color] = pawnType.split("-");
+  console.log(posibleMoves);
   const curIndex = index * 1;
   posibleMoves.forEach((el) => {
-    console.log(el);
     const newIndex = checkIligalePos(curIndex + el, curIndex, arrTD);
     arrTD[newIndex].addEventListener("click", (e) => {
       const indexPosTDClick = e.target.dataset?.indexPos;
       if (!indexPosTDClick) return;
       arrTD[newIndex].classList.add("active");
       movePawnToOtherPile(curIndex, indexPosTDClick);
+
+      type === "pawn" && editDatasSetByQuery(newIndex, 4, "1");
+
+      handleAfterClick(color);
     });
   });
 };

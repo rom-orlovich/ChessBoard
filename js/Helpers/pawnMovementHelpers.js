@@ -1,14 +1,16 @@
 import { selectElement, editDataSet } from "./utilitesFun.js";
 //when the boardDir change and the board is rotate the index of cell are not changing
 //therefore the change calcualtion of the regular pawns it doesn't change
-export const checkDir = (boardDir, color, change) => {
-  return (boardDir === 1 && color === "white") ||
-    (boardDir === 2 && color === "white")
-    ? change * -1
-    : (boardDir === 1 && color === "black") ||
-      (boardDir === 2 && color === "black")
-    ? change
-    : 0;
+export const checkDir = (boardDir, color, changes) => {
+  return changes?.map((el) => {
+    return (boardDir === 1 && color === "white") ||
+      (boardDir === 2 && color === "white")
+      ? el * -1
+      : (boardDir === 1 && color === "black") ||
+        (boardDir === 2 && color === "black")
+      ? el
+      : 0;
+  });
 };
 
 export const checkIligalePos = (newIndex, curIndex, arr) => {
@@ -32,14 +34,32 @@ export const checkTheBoarderOfPile = (curIndex, change, color, arr) => {
   const nextPile = getNextPileChild(curIndex - 7, curIndex, arr);
   return nextPile && getDataFromDataSet(nextPile, 3) !== color;
 };
+export const checkNumMovesOfPawn = (numMoves) => {
+  const NumMoves = numMoves * 1;
 
+  return NumMoves === 0 ? [8, 16] : [8];
+};
+
+export const editDatasSetByQuery = (
+  queryPos,
+  posInStrArr,
+  newstr,
+  datasetName = "typePawn"
+) => {
+  const el = selectElement(`img[data-type-pawn*="${queryPos}"]`);
+
+  const dataSetImg = el?.dataset[datasetName];
+
+  if (!el) return;
+  el.dataset[datasetName] = editDataSet(dataSetImg, posInStrArr, newstr);
+};
 export const movePawnToOtherPile = (queryPos, newPos) => {
   const choosenImg = selectElement(`img[data-type-pawn*="${queryPos}"]`);
   const choosenTD = selectElement(`td[data-index-pos*="${newPos}"]`);
   if (!(choosenImg && choosenTD)) return;
   const dataSetImg = choosenImg.dataset.typePawn;
   const indexPile = choosenTD.dataset.indexPile;
-  choosenImg.dataset.typePawn = editDataSet(indexPile, 0, "-", dataSetImg);
+  choosenImg.dataset.typePawn = editDataSet(dataSetImg, 0, indexPile);
   choosenImg.parentNode?.removeChild(choosenImg);
   return (
     !choosenTD.firstElementChild &&

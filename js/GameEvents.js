@@ -18,22 +18,31 @@ export class GameEvents {
   gameState;
   setState;
   constructor() {}
-  initChessBoardControl(arr) {
+  initChessBoardControl(arr, gameManageState) {
     this.dataTd = arr;
-  }
-
-  initAddEvent(dataTd, gameManageState) {
     const [gameState, setState] = gameManageState;
     this.gameState = gameState;
     this.setState = setState;
+  }
 
-    this.initChessBoardControl(dataTd);
+  setPlayerTrun(color) {
+    if (color === "white") this.gameState.playerTurns[0]++;
+    else this.gameState.playerTurns[1]++;
+    this.setState(this.gameState);
+  }
+
+  initAddEvent(dataTd, gameManageState, changeDirFun = () => {}) {
+    this.initChessBoardControl(dataTd, gameManageState);
     addEventListenerByQuery(
       "click",
       (e) => {
         const dataSetInfo = e.target.dataset.typePawn;
         if (!dataSetInfo) return;
-        this.handlerClickMovement(dataSetInfo, this.dataTd);
+        const handleAfterClick = (color) => {
+          changeDirFun(color === "white" ? "black" : "white");
+          this.setPlayerTrun(color);
+        };
+        this.handlerClickMovement(dataSetInfo, this.dataTd, handleAfterClick);
       },
       "#container_ChessBoard"
     );
@@ -73,13 +82,14 @@ export class GameEvents {
     handlePosibleMovment(dataSetInfo, allMovement, arrTD, addEvent);
   }
 
-  handlerClickMovement(dataSetInfo, arrTD) {
+  handlerClickMovement(dataSetInfo, arrTD, handleAfterClick) {
     let { normalMove, eatMove } = posibleMovementsObj(
       dataSetInfo,
       arrTD,
       this.gameState
     );
     let allMovement = genrateObjKeyValueToArr(normalMove);
-    handleClickPawn(dataSetInfo, allMovement, arrTD);
+    console.log(dataSetInfo);
+    handleClickPawn(dataSetInfo, allMovement, arrTD, handleAfterClick);
   }
 }

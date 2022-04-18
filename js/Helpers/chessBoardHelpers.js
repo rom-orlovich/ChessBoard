@@ -19,10 +19,11 @@ export const setPawnImg = (
   pawnIndex,
   indexPile,
   color,
-  boardDir
+  moveTimes
 ) => {
+  const MoveTime = moveTimes === 0 ? "-" + moveTimes : "";
   const pawnImg = createEl(createImgHtml(dataImg[color][typePawn].src));
-  pawnImg.dataset.typePawn = `${indexPile}-${typePawn}-${pawnIndex}-${color}-${boardDir}`;
+  pawnImg.dataset.typePawn = `${indexPile}-${typePawn}-${pawnIndex}-${color}${MoveTime}`;
   pawnImg.classList.add("center-abs");
   td.appendChild(pawnImg);
 };
