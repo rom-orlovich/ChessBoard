@@ -1,55 +1,9 @@
-import { dataImg } from "./dataImg.js";
-import { createImg } from "./utlities.js";
-const SIZE = 8;
-// typePawn,color,TDindex,numberPawn
-const checkTypePawn = (numberPawn) => {
-  let typePawn;
-
-  if (numberPawn === 0 || SIZE - 1) typePawn = "rook";
-  if (numberPawn === 1 || SIZE - 2) typePawn = "knight";
-  if (numberPawn === 2 || SIZE - 3) typePawn = "rook";
-  if (numberPawn === 3) typePawn = "king";
-  if (numberPawn === 4) typePawn = "queen";
-  console.log(typePawn);
-  return typePawn;
-};
-
-const checkColor = (row) => (row === 7 || row === 6 ? "white" : "black");
-
-const createImgWithDataSet = (TDindex, numberPawn, color, typePawn) => {
-  const img = createImg(dataImg[color][typePawn].src);
-  img.dataset.typePawn = `${typePawn}-${numberPawn}-${color}-${TDindex}`;
-  img.classList.add("center-abs");
-  return img;
-};
-
-const setPawn = (TDindex, numberPawn, color) => {
-  const typePawn = "pawn";
-  return createImgWithDataSet(TDindex, numberPawn, color, typePawn);
-};
-const setOtherPawn = (TDindex, numberPawn, color) => {
-  const typePawn = checkTypePawn(numberPawn);
-  return createImgWithDataSet(TDindex, numberPawn, color, typePawn);
-};
-const setUpPawns = {
-  0: setOtherPawn,
-  1: setPawn,
-
-  6: setPawn,
-  7: setOtherPawn,
-};
-const createRows = (tr, tdNumber, row) => {
-  for (let coulmn = 0; coulmn < SIZE; coulmn++) {
-    tdNumber++;
-
-    const td = document.createElement("td");
-    td.dataset.indexPos = [row, coulmn];
-    td.dataset.TdIndex = tdNumber;
-    if (row === 7 || row === 6 || row === 0 || row === 1)
-      td.appendChild(setUpPawns[row](coulmn, coulmn, checkColor(row)));
-    tr.appendChild(td);
-  }
-};
+import {
+  addEventListenerByQuery,
+  appendToDom,
+  createRows,
+  SIZE,
+} from "./utlities.js";
 
 const generateTable = () => {
   const table = document.createElement("table");
@@ -58,13 +12,7 @@ const generateTable = () => {
   for (let row = 0; row < SIZE; row++) {
     const tr = document.createElement("tr");
     tr.dataset.indexRow = row;
-    // for (let coulmn = 0; coulmn < SIZE; coulmn++) {
-    //   tdNumber++;
-    //   const td = document.createElement("td");
-    //   td.dataset.indexPos = [row, coulmn];
-    //   td.dataset.indexTD = tdNumber;
-    //   tr.appendChild(td);
-    // }
+
     createRows(tr, tdNumber, row);
     tbody.appendChild(tr);
   }
@@ -73,12 +21,21 @@ const generateTable = () => {
   return table;
 };
 
-const selectByQuery = (query, scope = document) => scope.querySelector(query);
-
-const appendToDom = (newEl, query) => {
-  const parentEl = selectByQuery(query);
-  parentEl.innerHtml = "";
-  parentEl.appendChild(newEl);
-};
-
 appendToDom(generateTable(), "#container_ChessBoard");
+let v;
+
+addEventListenerByQuery(
+  "click",
+  (e) => {
+    const target = e.target;
+    console.log(target);
+    if (!target.dataset.typePawn) return;
+    if (v) {
+      v.classList.remove("active");
+      v = undefined;
+    }
+    target.classList.add("active");
+    v = target;
+  },
+  "table"
+);
