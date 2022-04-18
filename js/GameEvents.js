@@ -15,19 +15,18 @@ export class GameEvents {
   dataTd;
   _tdBoardChess;
   _vtDom;
-
-  constructor(gameState) {
-    this.gameState = gameState;
-  }
+  gameState;
+  setState;
+  constructor() {}
   initChessBoardControl(arr) {
     this.dataTd = arr;
   }
-  setBoardDir(num) {
-    console.log(this.gameState);
-    // this.gameState.boardDir = num;
-  }
 
-  initAddEvent(dataTd) {
+  initAddEvent(dataTd, gameManageState) {
+    const [gameState, setState] = gameManageState;
+    this.gameState = gameState;
+    this.setState = setState;
+
     this.initChessBoardControl(dataTd);
     addEventListenerByQuery(
       "click",

@@ -57,39 +57,40 @@ export class ChessBoard {
     return table;
   }
 
-  changeDirBoard(color, boardDir, setBoardDir) {
-    // console.log(boardDir);
-    // let { dir } = boardDir;
+  // changeDirBoard(color, gameState, setGameState) {
+  //   gameState.boardDir = color === "white" ? 1 : 2;
 
-    setBoardDir(color === "white" ? 1 : 2);
-    // console.log(dir);
-    // console.log(boardDir);
-    // this.boardDir = color === "white" ? 1 : 2;
+  //   gameState.boardDir === 2
+  //     ? this.parentEl?.classList.add("rotate180")
+  //     : this.parentEl?.classList.remove("rotate180");
 
-    // this.boardDir === 2
-    //   ? this.parentEl?.classList.add("rotate180")
-    //   : this.parentEl?.classList.remove("rotate180");
-    console.log(boardDir);
-    boardDir === 2
+  //   this.tdBoardChess.forEach((el) => {
+  //     const img = el?.firstElementChild;
+  //     if (!img) return;
+  //     gameState.boardDir === 2
+  //       ? img.classList.add("rotate180Img")
+  //       : img.classList.remove("rotate180Img");
+  //   });
+
+  //   setGameState(gameState);
+  // }
+  changeDirBoard(color, stateMangement) {
+    const [gameState, setState] = stateMangement;
+    gameState.boardDir = color === "white" ? 1 : 2;
+
+    gameState.boardDir === 2
       ? this.parentEl?.classList.add("rotate180")
       : this.parentEl?.classList.remove("rotate180");
 
-    // this.makeTDArr();
-    // this.tdBoardChess.forEach((el) => {
-    //   const img = el?.firstElementChild;
-    //   if (!img) return;
-    //   this.boardDir === 2
-    //     ? img.classList.add("rotate180Img")
-    //     : img.classList.remove("rotate180Img");
-    // });
-    this.makeTDArr();
     this.tdBoardChess.forEach((el) => {
       const img = el?.firstElementChild;
       if (!img) return;
-      boardDir === 2
+      gameState.boardDir === 2
         ? img.classList.add("rotate180Img")
         : img.classList.remove("rotate180Img");
     });
+
+    // setGameState(gameState);
   }
   makeTDArr() {
     this.vtDom = document.createDocumentFragment().appendChild(this.curTable);

@@ -1,10 +1,15 @@
 import { selectElement, editDataSet } from "./utilitesFun.js";
-
-export const checkDir = (boardDir, color, number) =>
-  (boardDir === "1" && color === "white") ||
-  (boardDir === "2" && color === "black")
-    ? number * -1
-    : number;
+//when the boardDir change and the board is rotate the index of cell are not changing
+//therefore the change calcualtion of the regular pawns it doesn't change
+export const checkDir = (boardDir, color, change) => {
+  return (boardDir === 1 && color === "white") ||
+    (boardDir === 2 && color === "white")
+    ? change * -1
+    : (boardDir === 1 && color === "black") ||
+      (boardDir === 2 && color === "black")
+    ? change
+    : 0;
+};
 
 export const checkIligalePos = (newIndex, curIndex, arr) => {
   let length = arr.length - 1;
@@ -32,12 +37,12 @@ export const movePawnToOtherPile = (queryPos, newPos) => {
   const choosenImg = selectElement(`img[data-type-pawn*="${queryPos}"]`);
   const choosenTD = selectElement(`td[data-index-pos*="${newPos}"]`);
   if (!(choosenImg && choosenTD)) return;
-  const dataSetImg = choosenImg?.dataset?.typePawn;
-  const indexPile = choosenTD?.dataset.indexPile;
+  const dataSetImg = choosenImg.dataset.typePawn;
+  const indexPile = choosenTD.dataset.indexPile;
   choosenImg.dataset.typePawn = editDataSet(indexPile, 0, "-", dataSetImg);
-  choosenImg?.parentNode?.removeChild(choosenImg);
+  choosenImg.parentNode?.removeChild(choosenImg);
   return (
-    !choosenTD?.firstElementChild &&
+    !choosenTD.firstElementChild &&
     choosenTD.appendChild(choosenImg) &&
     choosenTD.classList.remove("active")
   );

@@ -43,19 +43,18 @@ const bishopMove = (lengthLoop, curIndex, change, arrTd, color) => {
 
 //add the options to move twice in the first turn
 const pawnMove = (curIndex, change, arrTd, boardDir, color) => {
-  return getNextPileChild(
-    curIndex + checkDir(boardDir, color, change),
-    curIndex,
-    arrTd
-  )?.dataset.typePawn?.split("-")[3] === color
-    ? []
-    : [checkDir(boardDir, color, change)];
+  const changeDir = checkDir(boardDir, color, change);
+  const nextPileChild = getNextPileChild(curIndex + changeDir, curIndex, arrTd);
+  const colorDataSet = getDataFromDataSet(nextPileChild, 3);
+
+  return colorDataSet === color ? [] : [changeDir];
 };
 
 export const posibleMovementsObj = (pawnType, arrTd, gameState) => {
   const [index, type, number, color] = pawnType.split("-");
-  console.log(gameState);
+  // console.log(gameState);
   const { boardDir, playerTurns, points, eatenPawns } = gameState;
+
   const Index = index * 1;
   // console.log(boardDir);
   const [row, column] = arrTd[Index]?.dataset.indexPos.split(",");

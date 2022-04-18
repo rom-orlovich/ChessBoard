@@ -21,6 +21,7 @@ export const handleClickPawn = (dataSetInfo, posibleMoves, arrTD) => {
   const [index, type, number, color, boardDir] = dataSetInfo.split("-");
   const curIndex = index * 1;
   posibleMoves.forEach((el) => {
+    console.log(el);
     const newIndex = checkIligalePos(curIndex + el, curIndex, arrTD);
     arrTD[newIndex].addEventListener("click", (e) => {
       const indexPosTDClick = e.target.dataset?.indexPos;
