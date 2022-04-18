@@ -42,5 +42,6 @@ export const handleClickPawn = (
 
       handleAfterClick(color);
     });
+    arrTD[newIndex].removeEventListener("click", () => {});
   });
 };

@@ -28,8 +28,10 @@ const verticalPossibleMovment = (change, curIndex, arr, color) => {
   const [rowNext, columnNext] = arr[newIndex]?.dataset.indexPos.split(",");
 
   if (
-    (rowNext !== row && column === columnNext) ||
-    (rowNext === row && column !== columnNext)
+    !(
+      (rowNext !== row && column === columnNext) ||
+      (rowNext === row && column !== columnNext)
+    )
   ) {
     return 0;
   }
@@ -45,7 +47,7 @@ const breakLoop = (change, curIndex, arrTd, color) => {
   const nextPileChild = getNextPileChild(newPos, curIndex, arrTd);
   if (!nextPileChild) return;
   const getColorDataSet = getDataFromDataSet(nextPileChild, 3);
-  return getColorDataSet !== color;
+  return getColorDataSet !== color || getColorDataSet === color;
 };
 
 const bishopMove = (type, lengthLoop, curIndex, change, arrTd, color) => {
