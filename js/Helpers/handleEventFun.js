@@ -37,8 +37,8 @@ export const handleClickPawn = (
       if (!indexPosTDClick) return;
       arrTD[newIndex].classList.add("active");
       movePawnToOtherPile(curIndex, indexPosTDClick);
-
-      type === "pawn" && editDatasSetByQuery(newIndex, 4, "1");
+      console.log(type);
+      if (type === "pawn") editDatasSetByQuery(newIndex, 4, "1");
 
       handleAfterClick(color);
     });

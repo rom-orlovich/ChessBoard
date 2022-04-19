@@ -25,6 +25,6 @@ const changeDirOfBoard = (color) => {
   chess.render(false);
 };
 
-ButtonControlInit(changeDirOfBoard);
+// ButtonControlInit(changeDirOfBoard);
 
 gameEvents.initAddEvent(chess.tdBoardChess, gameManageState, changeDirOfBoard);
